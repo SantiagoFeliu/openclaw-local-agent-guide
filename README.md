@@ -249,3 +249,94 @@ The installation itself was easy.
 
 Understanding what OpenClaw was actually doing internally took significantly more time.
 
+
+## Hardware limitations and deployment reality
+
+Real test environment:
+
+Operating System: Linux Mint
+
+GPU: NVIDIA GTX 1650
+
+VRAM: 4 GB
+
+RAM: local workstation environment
+
+Execution: local only
+
+The hardware configuration directly affected deployment decisions.
+
+This was not a cloud environment with unlimited resources.
+
+During deployment multiple behaviors appeared:
+
+Large models increased instability
+
+Some models loaded but responded slowly
+
+VRAM became a constant limitation
+
+Several local AI workflows exceeded available resources
+
+Model selection became an engineering decision rather than a benchmark decision
+
+Real tests included:
+
+Qwen experiments
+
+Local inference comparisons
+
+Gateway testing
+
+Agent response validation
+
+OpenClaw integrations
+
+n8n orchestration
+
+Observed impact areas:
+
+local inference
+
+agent responsiveness
+
+automation chains
+
+workflow complexity
+
+future video generation experiments
+
+## Important lesson
+
+Do not select models only because internet rankings recommend them.
+
+Validate using your own hardware.
+
+A smaller stable model is operationally more useful than a larger unstable one.
+
+GTX1650 4GB required practical decisions and repeated validation.
+
+## Real commands repeatedly used during troubleshooting
+
+nvidia-smi
+
+ollama list
+
+free -h
+
+htop
+
+systemctl --user status ollama
+
+systemctl --user status openclaw
+
+curl http://localhost:11434/api/tags
+
+openclaw skills check
+
+## Operational conclusion
+
+The installation itself was not the difficult part.
+
+Understanding interactions between OpenClaw, Ollama, local models, services and hardware constraints required most of the time invested.
+
