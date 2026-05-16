@@ -101,3 +101,114 @@ No fake one-click claims
 No undocumented shortcuts
 
 Everything validated in a real environment
+
+## Real deployment journey
+
+The actual installation process was not linear.
+
+The following stages happened during real deployment:
+
+### Phase 1
+
+Linux Mint preparation
+
+Node installation using NVM
+
+Environment validation
+
+OpenClaw installation
+
+Version updates
+
+### Phase 2
+
+Gateway service investigation
+
+systemd user services
+
+Port validation
+
+127.0.0.1:18789
+
+### Phase 3
+
+Ollama deployment
+
+Model testing
+
+Qwen experiments
+
+Performance validation
+
+GTX1650 limitations
+
+### Phase 4
+
+OpenClaw internal investigation
+
+~/.openclaw
+
+openclaw.json
+
+sessions
+
+logs
+
+providers
+
+agent configuration
+
+### Phase 5
+
+Skills investigation
+
+skills check
+
+skills list
+
+skills info
+
+58 installed skills discovered
+
+safe custom skills research
+
+### Phase 6
+
+Telegram integration
+
+Bot routing
+
+communication tests
+
+agent response validation
+
+### Phase 7
+
+n8n integration
+
+workflow generation
+
+automation tests
+
+local orchestration
+
+### Phase 8
+
+Failures and debugging
+
+provider conflicts
+
+schema failures
+
+service crashes
+
+gateway issues
+
+manual fixes
+
+### Lessons learned
+
+Documentation alone was not enough.
+
+Validation inside the real environment was required.
+
