@@ -212,3 +212,40 @@ Documentation alone was not enough.
 
 Validation inside the real environment was required.
 
+
+## Real validation commands used during deployment
+
+The system was repeatedly validated from terminal.
+
+Examples:
+
+systemctl --user status openclaw
+
+systemctl --user status openclaw-gateway
+
+systemctl --user status ollama
+
+ss -tulpn | grep 11434
+
+ss -tulpn | grep 5678
+
+curl http://localhost:11434/api/tags
+
+curl http://localhost:8002/health
+
+openclaw skills check
+
+openclaw skills list
+
+openclaw skills info github
+
+cat ~/.openclaw/openclaw.json
+
+grep -R "provider\|model" ~/.openclaw
+
+## Important observation
+
+The installation itself was easy.
+
+Understanding what OpenClaw was actually doing internally took significantly more time.
+
