@@ -333,3 +333,20 @@ Publish
 This repository is a field guide based on real testing.
 
 It will continue improving as the local agent stack evolves.
+
+## External technical review observations
+
+The project received an external review focused on constrained hardware deployment.
+
+Validated conclusions:
+
+OpenClaw and inference models should be treated as separate components.
+
+Hardware limitations strongly influence deployment architecture.
+
+Security validation before publication is mandatory.
+
+Real-world testing is more valuable than theoretical recommendations.
+
+Some optimization suggestions remain future work and require validation inside the actual environment.
+
