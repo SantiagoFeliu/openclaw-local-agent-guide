@@ -340,3 +340,22 @@ The installation itself was not the difficult part.
 
 Understanding interactions between OpenClaw, Ollama, local models, services and hardware constraints required most of the time invested.
 
+
+## Security validation
+
+Before publishing, the repository was scanned for exposed credentials.
+
+Tool used:
+
+Gitleaks
+
+Result:
+
+No leaks found
+
+Security lesson:
+
+Always scan before publishing.
+
+Do not assume local repositories are clean.
+
