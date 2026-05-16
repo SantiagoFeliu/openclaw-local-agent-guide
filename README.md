@@ -128,7 +128,7 @@ systemd user services
 
 Port validation
 
-127.0.0.1:18789
+127.0.0.1:<OPENCLAW_GATEWAY_PORT>
 
 ### Phase 3
 
@@ -225,13 +225,13 @@ systemctl --user status openclaw-gateway
 
 systemctl --user status ollama
 
-ss -tulpn | grep 11434
+ss -tulpn | grep <OLLAMA_PORT>
 
-ss -tulpn | grep 5678
+ss -tulpn | grep <AUTOMATION_PORT>
 
-curl http://localhost:11434/api/tags
+curl http://localhost:<OLLAMA_PORT>/api/tags
 
-curl http://localhost:8002/health
+curl http://localhost:<LOCAL_AGENT_PORT>/health
 
 openclaw skills check
 
@@ -330,7 +330,7 @@ systemctl --user status ollama
 
 systemctl --user status openclaw
 
-curl http://localhost:11434/api/tags
+curl http://localhost:<OLLAMA_PORT>/api/tags
 
 openclaw skills check
 
