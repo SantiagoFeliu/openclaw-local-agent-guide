@@ -110,6 +110,25 @@ The goal was not to use the largest model.
 
 The goal was to find a stable configuration for the available hardware.
 
+## Current validated model state
+
+The active model changed during deployment and testing.
+
+The last validated primary model configured in OpenClaw:
+
+nvidia/nemotron-3-super-120b-a12b
+
+Additional tested/configured models:
+
+- qwen2:1.5b
+- nvidia/moonshotai/kimi-k2.5
+- moonshot/kimi-k2.6
+- nvidia/moonshotai/kimi-k2.6
+- nvidia/llama-3.1-nemotron-70b-instruct
+- openai/llama-3.1-nemotron-70b-instruct
+
+Model selection evolved during deployment and should not be interpreted as a fixed architecture.
+
 ## Hardware limitations
 
 The GTX 1650 with 4 GB VRAM was a major constraint.
