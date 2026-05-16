@@ -1,38 +1,49 @@
 # Build a Completely Free OpenClaw AI Agent on Linux with Ollama + Telegram
 
-Build a completely free local AI agent using OpenClaw, Ollama, Telegram and workflow automation on Linux.
+A practical field guide for building a local AI agent stack on Linux using OpenClaw, Ollama, Telegram and workflow automation.
 
-A real-world, fully reproducible guide based on actual debugging, failures and deployment experience.
+This guide is based on real deployment work, debugging, failures, validation and security checks.
 
-This repository exists because building a working OpenClaw system was very different from watching tutorials or reading documentation.
+It is not a theoretical tutorial.
 
-The process required multiple days of testing, debugging, architecture changes and validation before obtaining a stable result.
+## Goal
 
-The objective:
+Build a local AI agent capable of operating as a task executor, not only as a chatbot.
 
-Help other people avoid losing days repeating the same mistakes.
+The system was designed to:
 
-## Environment used
+- run locally
+- use free or local components
+- avoid paid APIs as a requirement
+- connect OpenClaw with local and external model providers
+- integrate with Telegram
+- support workflow automation
+- validate every step from terminal
+- avoid exposing credentials or sensitive endpoints
+
+## Tested environment
 
 Operating System: Linux Mint
 
-GPU: NVIDIA GTX 1650 4GB
+GPU: NVIDIA GTX 1650
 
-Local LLM Runtime: Ollama
+VRAM: 4 GB
 
-Primary model: Qwen2.5
+Runtime: local workstation
+
+Main local runtime: Ollama
 
 Agent framework: OpenClaw
 
-Automation: n8n
+Automation layer: n8n
 
-Integration: Telegram
+Messaging layer: Telegram
 
-Execution mode: Local only
-
-Paid APIs: None
+Execution mode: local-first
 
 ## Architecture
+
+The system was separated into components:
 
 Linux Mint
 
@@ -42,15 +53,19 @@ OpenClaw
 
 ↓
 
-Gateway
+OpenClaw Gateway
 
 ↓
 
-Ollama
+Model provider layer
 
 ↓
 
-Qwen2.5
+Ollama / external providers
+
+↓
+
+Local or remote model
 
 ↓
 
@@ -58,13 +73,226 @@ Skills
 
 ↓
 
-n8n
+n8n workflows
 
 ↓
 
-Telegram
+Telegram interface
 
-## Validation workflow
+## Important clarification
+
+OpenClaw is not the model.
+
+OpenClaw coordinates the agent behavior.
+
+The model provider performs inference.
+
+Ollama can expose local models.
+
+External providers can also be configured.
+
+The agent brain depends on the active provider and model configuration.
+
+## Model experimentation
+
+The deployment did not rely on a single model from the beginning.
+
+Real experiments included:
+
+- Ollama + Qwen2 1.5B
+- Ollama + Qwen2.5 3B
+- Moonshot Kimi K2.5
+- Moonshot Kimi K2.6
+- NVIDIA Nemotron models
+- OpenAI-compatible provider configurations
+
+The goal was not to use the largest model.
+
+The goal was to find a stable configuration for the available hardware.
+
+## Hardware limitations
+
+The GTX 1650 with 4 GB VRAM was a major constraint.
+
+Observed behavior:
+
+- large models caused instability
+- some models loaded but responded slowly
+- VRAM became a constant limitation
+- local video generation was not realistic on this hardware
+- smaller models were more operationally useful
+- model selection required real testing, not only benchmarks
+
+Lesson:
+
+A smaller stable model is better than a larger unstable model.
+
+## Deployment journey
+
+The real process was not linear.
+
+Stages included:
+
+1. Linux Mint preparation
+2. Node installation with NVM
+3. OpenClaw installation
+4. OpenClaw version updates
+5. Gateway configuration
+6. Ollama setup
+7. Local model testing
+8. Provider testing
+9. OpenClaw configuration inspection
+10. Skills discovery
+11. Telegram integration
+12. n8n validation
+13. Service debugging
+14. Security scanning
+15. GitHub publication
+
+## OpenClaw internal investigation
+
+Important local areas inspected:
+
+- ~/.openclaw
+- openclaw.json
+- completions
+- logs
+- sessions
+- providers
+- skills
+- systemd user services
+
+Useful commands:
+
+openclaw skills check
+
+openclaw skills list
+
+openclaw skills info github
+
+find ~/.openclaw -type f
+
+grep -R "provider\|model" ~/.openclaw
+
+systemctl --user status openclaw-gateway
+
+## Validation commands
+
+The system was validated from terminal.
+
+Examples:
+
+systemctl --user status openclaw
+
+systemctl --user status openclaw-gateway
+
+systemctl --user status ollama
+
+ss -tulpn | grep <OLLAMA_PORT>
+
+ss -tulpn | grep <AUTOMATION_PORT>
+
+curl http://localhost:<OLLAMA_PORT>/api/tags
+
+curl http://localhost:<LOCAL_AGENT_PORT>/health
+
+ollama list
+
+openclaw skills check
+
+## Telegram integration
+
+Telegram was used as an external interaction channel.
+
+The guide intentionally avoids publishing:
+
+- bot token
+- bot username
+- webhook URL
+- private chat IDs
+- production endpoints
+
+Only the integration concept is documented.
+
+## Security rules
+
+Do not publish:
+
+- API keys
+- tokens
+- passwords
+- bot credentials
+- private endpoints
+- personal ports
+- internal usernames
+- LAN IP addresses
+- webhook URLs
+- .env files
+- raw config files with secrets
+
+Use placeholders instead:
+
+- <OLLAMA_PORT>
+- <OPENCLAW_GATEWAY_PORT>
+- <LOCAL_AGENT_PORT>
+- <AUTOMATION_PORT>
+- <TELEGRAM_BOT_TOKEN>
+- <WEBHOOK_URL>
+
+## Security validation
+
+Before publishing, the repository was scanned for exposed credentials.
+
+Tool used:
+
+Gitleaks
+
+Result:
+
+No leaks found
+
+Command example:
+
+gitleaks detect . --no-git
+
+Security lesson:
+
+Always scan before publishing.
+
+Do not assume a local repository is clean.
+
+## GitHub workflow
+
+The repository was created and updated from Linux terminal.
+
+Workflow:
+
+git add README.md
+
+git commit -m "Update guide"
+
+git push origin main
+
+The guide was not manually edited from the GitHub web interface.
+
+## Lessons learned
+
+The installation was not the hardest part.
+
+The difficult part was understanding the interaction between:
+
+- OpenClaw
+- gateway
+- model providers
+- Ollama
+- local services
+- hardware limits
+- skills
+- automation
+- Telegram
+- security
+
+The correct workflow was:
 
 Install
 
@@ -90,272 +318,18 @@ Retest
 
 ↓
 
-Automate
+Document
 
-## Rules
+↓
 
-No paid APIs
+Scan
 
-No fake one-click claims
+↓
 
-No undocumented shortcuts
+Publish
 
-Everything validated in a real environment
+## Project status
 
-## Real deployment journey
+This repository is a field guide based on real testing.
 
-The actual installation process was not linear.
-
-The following stages happened during real deployment:
-
-### Phase 1
-
-Linux Mint preparation
-
-Node installation using NVM
-
-Environment validation
-
-OpenClaw installation
-
-Version updates
-
-### Phase 2
-
-Gateway service investigation
-
-systemd user services
-
-Port validation
-
-127.0.0.1:<OPENCLAW_GATEWAY_PORT>
-
-### Phase 3
-
-Ollama deployment
-
-Model testing
-
-Qwen experiments
-
-Performance validation
-
-GTX1650 limitations
-
-### Phase 4
-
-OpenClaw internal investigation
-
-~/.openclaw
-
-openclaw.json
-
-sessions
-
-logs
-
-providers
-
-agent configuration
-
-### Phase 5
-
-Skills investigation
-
-skills check
-
-skills list
-
-skills info
-
-58 installed skills discovered
-
-safe custom skills research
-
-### Phase 6
-
-Telegram integration
-
-Bot routing
-
-communication tests
-
-agent response validation
-
-### Phase 7
-
-n8n integration
-
-workflow generation
-
-automation tests
-
-local orchestration
-
-### Phase 8
-
-Failures and debugging
-
-provider conflicts
-
-schema failures
-
-service crashes
-
-gateway issues
-
-manual fixes
-
-### Lessons learned
-
-Documentation alone was not enough.
-
-Validation inside the real environment was required.
-
-
-## Real validation commands used during deployment
-
-The system was repeatedly validated from terminal.
-
-Examples:
-
-systemctl --user status openclaw
-
-systemctl --user status openclaw-gateway
-
-systemctl --user status ollama
-
-ss -tulpn | grep <OLLAMA_PORT>
-
-ss -tulpn | grep <AUTOMATION_PORT>
-
-curl http://localhost:<OLLAMA_PORT>/api/tags
-
-curl http://localhost:<LOCAL_AGENT_PORT>/health
-
-openclaw skills check
-
-openclaw skills list
-
-openclaw skills info github
-
-cat ~/.openclaw/openclaw.json
-
-grep -R "provider\|model" ~/.openclaw
-
-## Important observation
-
-The installation itself was easy.
-
-Understanding what OpenClaw was actually doing internally took significantly more time.
-
-
-## Hardware limitations and deployment reality
-
-Real test environment:
-
-Operating System: Linux Mint
-
-GPU: NVIDIA GTX 1650
-
-VRAM: 4 GB
-
-RAM: local workstation environment
-
-Execution: local only
-
-The hardware configuration directly affected deployment decisions.
-
-This was not a cloud environment with unlimited resources.
-
-During deployment multiple behaviors appeared:
-
-Large models increased instability
-
-Some models loaded but responded slowly
-
-VRAM became a constant limitation
-
-Several local AI workflows exceeded available resources
-
-Model selection became an engineering decision rather than a benchmark decision
-
-Real tests included:
-
-Qwen experiments
-
-Local inference comparisons
-
-Gateway testing
-
-Agent response validation
-
-OpenClaw integrations
-
-n8n orchestration
-
-Observed impact areas:
-
-local inference
-
-agent responsiveness
-
-automation chains
-
-workflow complexity
-
-future video generation experiments
-
-## Important lesson
-
-Do not select models only because internet rankings recommend them.
-
-Validate using your own hardware.
-
-A smaller stable model is operationally more useful than a larger unstable one.
-
-GTX1650 4GB required practical decisions and repeated validation.
-
-## Real commands repeatedly used during troubleshooting
-
-nvidia-smi
-
-ollama list
-
-free -h
-
-htop
-
-systemctl --user status ollama
-
-systemctl --user status openclaw
-
-curl http://localhost:<OLLAMA_PORT>/api/tags
-
-openclaw skills check
-
-## Operational conclusion
-
-The installation itself was not the difficult part.
-
-Understanding interactions between OpenClaw, Ollama, local models, services and hardware constraints required most of the time invested.
-
-
-## Security validation
-
-Before publishing, the repository was scanned for exposed credentials.
-
-Tool used:
-
-Gitleaks
-
-Result:
-
-No leaks found
-
-Security lesson:
-
-Always scan before publishing.
-
-Do not assume local repositories are clean.
-
+It will continue improving as the local agent stack evolves.
