@@ -148,7 +148,7 @@ The real process was not linear.
 
 Stages included:
 
-1. Linux Mint preparation
+1. Linux workstation preparation
 2. Node installation with NVM
 3. OpenClaw installation
 4. OpenClaw version updates
