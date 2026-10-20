@@ -23,13 +23,9 @@ The system was designed to:
 
 ## Tested environment
 
-Operating System: Linux Mint
+Operating System: Linux
 
-GPU: NVIDIA GTX 1650
-
-VRAM: 4 GB
-
-Runtime: local workstation
+Runtime: local development workstation
 
 Main local runtime: Ollama
 
@@ -45,7 +41,7 @@ Execution mode: local-first
 
 The system was separated into components:
 
-Linux Mint
+Linux
 
 ↓
 
@@ -131,13 +127,13 @@ Model selection evolved during deployment and should not be interpreted as a fix
 
 ## Hardware limitations
 
-The GTX 1650 with 4 GB VRAM was a major constraint.
+Limited local compute resources were a major constraint.
 
 Observed behavior:
 
 - large models caused instability
 - some models loaded but responded slowly
-- VRAM became a constant limitation
+- available compute memory was a limitation
 - local video generation was not realistic on this hardware
 - smaller models were more operationally useful
 - model selection required real testing, not only benchmarks
